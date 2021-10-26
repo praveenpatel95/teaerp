@@ -24,32 +24,36 @@ use App\Http\Controllers\Api\PaymentController;
 });*/
 
 Route::group(["namespace"=>"Api"], function(){
-    /*Salesman*/
-    Route::get('salesmanData', [SalesmanController::class, 'getData']);
 
-    /*Salesman Sale*/
-    Route::post('salesmanSalesStore', [SaleController::class, 'Store']);
-    Route::get('salesmanSalesData', [SaleController::class, 'getData']);
+    Route::group(['middleware' => 'auth:api'], function(){
+        /*Salesman*/
+        Route::get('salesmanData', [SalesmanController::class, 'getData']);
 
-    /*Salesman Payment*/
-    Route::post('salesmanPaymentsStore', [PaymentController::class, 'Store']);
-    Route::get('salesmanPaymentsData', [PaymentController::class, 'getData']);
+        /*Salesman Sale*/
+        Route::post('salesmanSalesStore', [SaleController::class, 'Store']);
+        Route::get('salesmanSalesData', [SaleController::class, 'getData']);
 
-    /*Salesman Attendance*/
-    Route::get('salesmanAttendanceData', [SalesmanController::class, 'salesmanAttendanceData']);
+        /*Salesman Payment*/
+        Route::post('salesmanPaymentsStore', [PaymentController::class, 'Store']);
+        Route::get('salesmanPaymentsData', [PaymentController::class, 'getData']);
 
-    /*Salesman Route*/
-    Route::get('salesmanRouteData', [SalesmanController::class, 'salesmanRouteData']);
+        /*Salesman Attendance*/
+        Route::get('salesmanAttendanceData', [SalesmanController::class, 'salesmanAttendanceData']);
 
-    /*Customer*/
-    Route::post('customerGiftUpdate/{id}', [CustomerController::class, 'giftUpdate']);
-    Route::post('customerStore', [CustomerController::class, 'Store']);
-    Route::get('customerData', [CustomerController::class, 'getData']);
-    Route::get('customerGiftData', [CustomerController::class, 'customerGiftData']);
+        /*Salesman Route*/
+        Route::get('salesmanRouteData', [SalesmanController::class, 'salesmanRouteData']);
 
-    /*Product*/
-    Route::get('productData', [ProductController::class, 'getData']);
+        /*Customer*/
+        Route::post('customerGiftUpdate/{id}', [CustomerController::class, 'giftUpdate']);
+        Route::post('customerStore', [CustomerController::class, 'Store']);
+        Route::get('customerData', [CustomerController::class, 'getData']);
+        Route::get('customerGiftData', [CustomerController::class, 'customerGiftData']);
 
-    /*User*/
-    Route::get('userData', [UserController::class, 'getData']);
+        /*Product*/
+        Route::get('productData', [ProductController::class, 'getData']);
+
+        /*User*/
+        Route::get('userData', [UserController::class, 'getData']);
+    });
+    Route::post('login', [\App\Http\Controllers\Api\LoginController::class, 'login']);
 });

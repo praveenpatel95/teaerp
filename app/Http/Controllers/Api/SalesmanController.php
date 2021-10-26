@@ -49,7 +49,7 @@ class SalesmanController extends Controller
     /*Salesman List*/
     public function getData(Request $request)
     {
-        $salesmanData = User::with('salesman')->find($request->user_id);
+        $salesmanData = User::with('salesman')->find(Auth::id());
         return response()->json($salesmanData);
     }
 
@@ -140,7 +140,7 @@ class SalesmanController extends Controller
     /*Sale List*/
     public function salesmanSalesData(Request $request)
     {
-        $salesmanData = Salesman::where('user_id', $request->user_id)->first();
+        $salesmanData = Salesman::where('user_id', Auth::id())->first();
         $sales = Sale::where('salesman_id', $salesmanData->id)->get();
         return response()->json($sales);
     }
@@ -148,7 +148,7 @@ class SalesmanController extends Controller
     /*Payment List*/
     public function salesmanPaymentData(Request $request)
     {
-        $salesmanData = Salesman::where('user_id', $request->user_id)->first();
+        $salesmanData = Salesman::where('user_id', Auth::id())->first();
         $salesPayment = SalePayment::where('salesman_id', $salesmanData->id)->get();
         return response()->json($salesPayment);
     }
@@ -156,7 +156,7 @@ class SalesmanController extends Controller
     /*Attendance List*/
     public function salesmanAttendanceData(Request $request)
     {
-        $salesmanData = Salesman::where('user_id', $request->user_id)->first();
+        $salesmanData = Salesman::where('user_id', Auth::id())->first();
         $salesAttendance = Attendance::where('salesman_id', $salesmanData->id)->get();
         return response()->json($salesAttendance);
     }
@@ -164,7 +164,7 @@ class SalesmanController extends Controller
     /*Route List*/
     public function salesmanRouteData(Request $request)
     {
-        $salesmanData = Salesman::where('user_id', $request->user_id)->first();
+        $salesmanData = Salesman::where('user_id', Auth::id())->first();
         $lineRoute = LineRoute::where('line_id', $salesmanData->line_id)->pluck('route_id')->toArray();
         $route = Route::whereIn('id', $lineRoute)->get();
         return response()->json($route);

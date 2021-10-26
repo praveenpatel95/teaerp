@@ -9,6 +9,7 @@ use App\Models\SalePayment;
 use App\Models\SaleProduct;
 use App\Models\Salesman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
@@ -17,7 +18,7 @@ class SaleController extends Controller
     /*Sale List*/
     public function getData(Request $request)
     {
-        $salesmanData = Salesman::where('user_id', $request->user_id)->first();
+        $salesmanData = Salesman::where('user_id', Auth::id())->first();
         $sales = Sale::where('salesman_id', $salesmanData->id)->get();
         return response()->json($sales);
     }

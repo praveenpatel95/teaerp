@@ -8,6 +8,7 @@ use App\Models\Gift;
 use App\Models\LineRoute;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class CustomerController extends Controller
@@ -15,7 +16,7 @@ class CustomerController extends Controller
     /*Customer list*/
     public function getData(Request $request)
     {
-        $user = User::find($request->user_id);
+        $user = User::find(Auth::id());
         $customerData = $user->salesman;
         $route = LineRoute::where('line_id', $customerData->line_id)->pluck('route_id')->toArray();
         $customer = Customer::whereIn('route_id', $route)->get();
@@ -77,7 +78,7 @@ class CustomerController extends Controller
     /*Customer Gift*/
     public function customerGiftData(Request $request)
     {
-        $user = User::find($request->user_id);
+        $user = User::find(Auth::id());
         $customerData = $user->salesman;
         $route = LineRoute::where('line_id', $customerData->line_id)->pluck('route_id')->toArray();
         $customer = Customer::whereIn('route_id', $route)->pluck('id')->toArray();
