@@ -1,0 +1,23 @@
+.required{color: red;}
+.capital{text-transform: capitalize;}
+.chosen-container{width:100% !important;}
+.invoice-table .table-bordered{    border: 1px solid #ccc;}
+.tr-td-none td{border:none !important;}
+.invoice-table td{padding: 5px !important;}
+.invoice-table h4{padding: 0px !important;margin: 0px !important;}
+@media print
+{
+    .no-print
+    {
+        display: none !important;
+    }
+    body,#content,#main{
+    	margin: 0px !important;
+    	padding: 0px !important;
+    }
+    .table td{padding: 8px !important;}
+}
+.form-control,.fg-input{border: 1px solid #03a9f4;}
+html:not(.ie9) .select {
+    border-bottom: 1px solid #03a9f4;
+}
