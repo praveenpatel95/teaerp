@@ -39,7 +39,7 @@ class SaleController extends Controller
         ];
         $validator = \Illuminate\Support\Facades\Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return response()->json($validator->errors(),400);
+            return response()->json($validator->errors(), 400);
         }
 
         $store = new Sale();
@@ -135,6 +135,20 @@ class SaleController extends Controller
         return str_pad($rec_no, 3, "0", STR_PAD_LEFT);
     }
 
+    public function saleProduct()
+    {
+        $salesmanData = Salesman::where('user_id', Auth::User()->id)->first();
 
+
+        $sale_id = Sale::where('salesman_id',$salesmanData->id)->pluck('id')->toArray();
+
+        $sale_product = SaleProduct::leftjoin('products', 'products.id', 'sale_products.product_id')
+            ->whereIn('sale_products.sale_id', $sale_id)
+            ->select('sale_products.*', 'products.product_name', 'products.unite')
+            ->get();
+
+
+        return response()->json($sale_product);
+    }
 
 }

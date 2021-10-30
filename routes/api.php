@@ -54,6 +54,9 @@ Route::group(["namespace"=>"Api"], function(){
 
         /*User*/
         Route::get('userData', [UserController::class, 'getData']);
+
+        /*Sale Products*/
+        Route::get('saleproduct',[SaleController::class,'saleProduct']);
     });
     Route::post('login', [\App\Http\Controllers\Api\LoginController::class, 'login']);
 });
