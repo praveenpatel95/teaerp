@@ -49,7 +49,7 @@ class SalesmanController extends Controller
     /*Salesman List*/
     public function getData(Request $request)
     {
-        $salesmanData = User::with('salesman')->find(Auth::id());
+        $salesmanData = User::with('salesman')->whereHas("salesman")->get();
         return response()->json($salesmanData);
     }
 
