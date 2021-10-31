@@ -50,6 +50,9 @@ class CustomerController extends Controller
             return response()->json($validator->errors());
         }
         $store = new Customer();
+        if($request->id){
+            $store = Customer::find($request->id);
+        }
         $store->route_id = $request->route_id;
         $store->customer_name = $request->customer_name;
         $store->father_name = $request->father_name;
@@ -72,7 +75,7 @@ class CustomerController extends Controller
             $store->customer_photo = $path;
         }
         $store->save();
-        return response()->json('success', 200);
+        return response()->json($store, 200);
     }
 
     /*Customer Gift*/

@@ -41,6 +41,9 @@ class SaleController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
+        if(!Customer::find($request->customer_id)){
+            return response()->json(["customer_not_found"], 200);
+        }
 
         $store = new Sale();
         $store->customer_id = $request->customer_id;
@@ -89,7 +92,7 @@ class SaleController extends Controller
         } else {
             $this->CustomerDueStore($request->customer_id, $store->total_amount, 0);
         }
-        return response()->json('success', 200);
+        return response()->json($store, 200);
 
     }
 
