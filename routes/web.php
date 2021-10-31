@@ -71,7 +71,10 @@ Route::get('cronjob',function()
 {
  Artisan::call('schedule:run');
 });
-
+Route::get('passport',function()
+{
+    Artisan::call('passport:install');
+});
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -220,7 +223,7 @@ Route::group(['middleware' => ['role:admin', 'auth'], 'prefix' => 'admin'], func
     Route::get('olddueGet',[CustomerController::class,'olddueGet']);
     Route::post('olddueAdd',[CustomerController::class,'olddueAdd'])->name('olddueAdd');
 
-  
+
 
     //advance payment
     Route::get('advancepayment/getData',[AdvancePaymentController::class,'getData'])->name('advancepayment.getData');
