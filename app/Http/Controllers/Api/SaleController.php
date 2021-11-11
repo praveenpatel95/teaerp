@@ -28,7 +28,6 @@ class SaleController extends Controller
     {
         $rules = [
             'customer_id' => 'required',
-            'salesman_id' => 'required',
             'sale_date' => 'required|date',
             'sale_no' => 'required',
             'product_id' => 'required',
@@ -45,9 +44,10 @@ class SaleController extends Controller
             return response()->json(["customer_not_found"], 200);
         }
 
+        $salesmanData = Salesman::where('user_id', Auth::id())->first();
         $store = new Sale();
         $store->customer_id = $request->customer_id;
-        $store->salesman_id = $request->salesman_id;
+        $store->salesman_id = $salesmanData->id;
         $store->sale_date = date('Y-m-d H:i:s', strtotime($request->sale_date));
         $store->sale_no = $request->sale_no;
         $store->remark = $request->remark;
