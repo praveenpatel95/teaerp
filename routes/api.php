@@ -42,7 +42,8 @@ Route::group(["namespace"=>"Api"], function(){
 
         /*Salesman Route*/
         Route::get('salesmanRouteData', [SalesmanController::class, 'salesmanRouteData']);
-
+        /*Salesman Route*/
+        Route::post('return/sale/product/{id}', [SaleController::class, 'returnSaleProduct']);
         /*Customer*/
         Route::post('customerGiftUpdate/{id}', [CustomerController::class, 'giftUpdate']);
         Route::post('customerStore', [CustomerController::class, 'Store']);

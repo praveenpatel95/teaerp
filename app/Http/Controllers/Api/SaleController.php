@@ -154,4 +154,14 @@ class SaleController extends Controller
         return response()->json($sale_product);
     }
 
+    public function returnSaleProduct($saleProductId){
+       $saleProduct =  SaleProduct::find($saleProductId);
+       if($saleProduct ){
+           $saleProduct->status = 1;
+           //TODO update return rec no @praveen
+           $saleProduct->save();
+       }
+        return response()->json([]);
+    }
+
 }
