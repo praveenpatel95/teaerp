@@ -61,3 +61,7 @@ Route::group(["namespace"=>"Api"], function(){
     });
     Route::post('login', [\App\Http\Controllers\Api\LoginController::class, 'login']);
 });
+Route::get('cache', function(){
+   \Illuminate\Support\Facades\Artisan::call('route:cache');
+   \Illuminate\Support\Facades\Artisan::call('config:cache');
+});

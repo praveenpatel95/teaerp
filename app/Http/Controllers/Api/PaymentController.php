@@ -37,6 +37,9 @@ class PaymentController extends Controller
 
         $sale = Sale::find($request->sale_id);
 
+        if(!$sale){
+            return response()->json('success', 404);
+        }
         $store = new SalePayment();
         $store->sale_id = $request->sale_id;
         $store->salesman_id = $sale->salesman_id;
